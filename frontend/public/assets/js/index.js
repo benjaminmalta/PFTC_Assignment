@@ -3,6 +3,13 @@ let signOutButton = document.getElementById("signOut");
 let profile = document.getElementById("profile");
 let signInContainer = document.getElementById("signInContainer");
 
+
+function showInputField()
+{
+  document.getElementById("convertInput").style.display= "block";
+  document.getElementById("convertButton").style.display= "block";
+}
+
 const authenticateReq = async (token) => {
   const url = `/auth?token=${token}`;
   const headers = {
@@ -31,6 +38,7 @@ const authenticateReq = async (token) => {
     loading="lazy"
   />` + name;
     document.getElementById("home-container").innerHTML = `<a class="nav-link active" aria-current="page" href="/home?token=${token}">Home</a>`;
+    showInputField();
     document.getElementById("picture").src = picture;
    
     let date = new Date();

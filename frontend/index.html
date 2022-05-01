@@ -79,8 +79,10 @@
         <div
           class="row justify-content-center m-3m align-items-center"
           style="height: 100%"
+          id="convertInputField"
+          
         >
-          <div class="col-auto justify-content-center">
+          <div class="col-auto justify-content-center" style="display: none" id="convertInput">
             <input
               id="fileInput"
               class="form-control"
@@ -89,7 +91,7 @@
               accept="image/*"
             />
           </div>
-          <div class="col-auto justify-content-center">
+          <div class="col-auto justify-content-center" style="display: none;" id="convertButton">
             <button
               id="convert"
               type="button"
