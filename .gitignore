@@ -3,5 +3,5 @@
 /backend/key.json
 /cloudfunction/node_modules
 /cloudfunction/key.json
-/cloudfunction/cloudfunctions.zip
+/cloudfunction/cloudfunction.zip
 .DS_Store

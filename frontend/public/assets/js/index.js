@@ -2,12 +2,57 @@ let signInButton = document.getElementById("signIn");
 let signOutButton = document.getElementById("signOut");
 let profile = document.getElementById("profile");
 let signInContainer = document.getElementById("signInContainer");
+let creditCount = document.getElementById("creditCounter");
 
 
 function showInputField()
 {
-  document.getElementById("convertInput").style.display= "block";
-  document.getElementById("convertButton").style.display= "block";
+  var pathname = window.location.pathname;
+  switch(pathname){
+    case "/":
+      document.getElementById("convertInput").style.display= "block";
+      document.getElementById("convertButton").style.display= "block";
+      break;
+  } 
+}
+function toggleInputField() {
+  switch (document.getElementById("convertInput").style.display) {
+    case "none":
+      document.getElementById("convertInput").style.display = "block";
+      document.getElementById("convertButton").style.display = "block";
+      document.getElementById("adminList").style.display = "none";
+      break;
+    case "block":
+      document.getElementById("convertInput").style.display = "none";
+      document.getElementById("convertButton").style.display = "none";
+      document.getElementById("adminList").style.display = "block";
+      
+      
+      break;
+  }
+}
+function hideInputField()
+{
+  var pathname = window.location.pathname;
+  switch(pathname){
+    case "/":
+      document.getElementById("convertInput").style.display= "none";
+      document.getElementById("convertButton").style.display= "none";
+      break;
+  } 
+}
+
+
+
+async function GetCreditsPrices()
+{
+  const url = `/getCreditPrices`;
+  const headers = {
+    "Content-Type": "text/html",
+    "Access-Control-Allow-Origin": "*",
+  };
+  const response = await axios.post(url, headers);
+  const status = response.data.creditPrices;
 }
 
 const authenticateReq = async (token) => {
@@ -37,8 +82,13 @@ const authenticateReq = async (token) => {
     alt=""
     loading="lazy"
   />` + name;
-    document.getElementById("home-container").innerHTML = `<a class="nav-link active" aria-current="page" href="/home?token=${token}">Home</a>`;
+    if(response.data.admin)
+    {
+      document.getElementById("home-container").innerHTML = `<button type="button" class="btn btn-primary" onclick="toggleInputField()" >Admin Panel</button>`;
+    }
     showInputField();
+    creditCount.style.display = "inline";
+    creditCount.innerText = `Credits: ${response.data.credits}`;
     document.getElementById("picture").src = picture;
    
     let date = new Date();
@@ -100,3 +150,4 @@ async function loadGoogleLogin() {
     );
   });
 }
+

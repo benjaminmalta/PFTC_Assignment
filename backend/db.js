@@ -43,11 +43,10 @@ const db = new Firestore({
 });
 
 
-export async function CreateUser(name, surname, email, credits) {
-  const docRef = db.collection("usersData").doc();
+export async function CreateUser(name, email, credits) {
+  const docRef = db.collection("userData").doc();
   return await docRef.set({
     name: name,
-    surname: surname,
     email: email,
     credits: credits,
     admin: false,
@@ -56,7 +55,7 @@ export async function CreateUser(name, surname, email, credits) {
 
 //Get user based on Email search.
 export async function GetUser(email) {
-  const docRef = db.collection("usersData");
+  const docRef = db.collection("userData");
   const snapshot = await docRef.where("email", "==", email).get();
   let data = [];
   snapshot.forEach((doc) => {
@@ -64,6 +63,20 @@ export async function GetUser(email) {
   });
   return data;
 }
+
+export async function GetConversion(email, filename)
+{
+  //.where( "filename", "==", filename)
+  const docRef = db.collection("conversions");
+  const snapshot = await docRef.where("email", "==", email).where( "filename", "==", filename).get();
+  let data = [];
+  snapshot.forEach((doc) => {
+    data.push(doc.data());
+    console.log(doc.id);
+  });
+  return data;
+}
+
 
 //Collection (Table)
 //Document (Row)
