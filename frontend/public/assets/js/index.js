@@ -20,14 +20,16 @@ function toggleInputField() {
     case "none":
       document.getElementById("convertInput").style.display = "block";
       document.getElementById("convertButton").style.display = "block";
-      document.getElementById("adminList").style.display = "none";
+      document.getElementById("priceList").style.display = "none";
+      document.getElementById("convertSection").style.display = "block";
+      document.getElementById("adminPanel").style.display = "none";
       break;
     case "block":
       document.getElementById("convertInput").style.display = "none";
       document.getElementById("convertButton").style.display = "none";
-      document.getElementById("adminList").style.display = "block";
-      
-      
+      document.getElementById("priceList").style.display = "block";
+      document.getElementById("convertSection").style.display = "none";
+      document.getElementById("adminPanel").style.display = "none";
       break;
   }
 }
@@ -40,6 +42,25 @@ function hideInputField()
       document.getElementById("convertButton").style.display= "none";
       break;
   } 
+}
+function toggleAdminPanel()
+{
+  switch (document.getElementById("adminPanel").style.display) {
+    case "none":
+      document.getElementById("convertInput").style.display = "none";
+      document.getElementById("convertButton").style.display = "none";
+      document.getElementById("priceList").style.display = "none";
+      document.getElementById("convertSection").style.display = "none";
+      document.getElementById("adminPanel").style.display = "block";
+      break;
+    case "block":
+      document.getElementById("convertInput").style.display = "block";
+      document.getElementById("convertButton").style.display = "block";
+      document.getElementById("priceList").style.display = "none";
+      document.getElementById("convertSection").style.display = "block";
+      document.getElementById("adminPanel").style.display = "none";
+      break;
+  }
 }
 
 
@@ -84,7 +105,7 @@ const authenticateReq = async (token) => {
   />` + name;
     if(response.data.admin)
     {
-      document.getElementById("home-container").innerHTML = `<button type="button" class="btn btn-primary" onclick="toggleInputField()" >Admin Panel</button>`;
+      document.getElementById("home-container").innerHTML = `<button type="button" class="btn btn-primary" onclick="toggleAdminPanel()" >Admin Panel</button>`;
     }
     showInputField();
     creditCount.style.display = "inline";

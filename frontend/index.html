@@ -19,18 +19,19 @@
         <span class="navbar-toggler-icon"></span>
       </button>
 
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-          <li id="home-container" class="nav-item">
 
-          </li>
-        </ul>
 
-        <!-- Right elements -->
-        <div class="d-flex align-items-center justify-content-end" style="margin-left: auto">
-          <span id="creditCounter" class="navbar-text" style="display: none">
+      <!-- Right elements -->
+      <div class="d-flex align-items-center justify-content-end" style="margin-left: auto">
+        <span id="creditCounter" class="navbar-text" style="display: none">
 
-          </span>
+        </span>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li id="home-container" class="nav-item">
+
+            </li>
+          </ul>
           <!-- Avatar -->
           <ul id="signInContainer" class="navbar-nav" style="display: none">
             <li class="nav-item">
@@ -39,12 +40,13 @@
           </ul>
 
           <div id="profile" class="nav-item dropdown" style="display: none">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+            <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" role="button"
               data-bs-toggle="dropdown" aria-expanded="false" style="color: white">
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <li>
+              <li id="dropdown-list">
                 <a class="dropdown-item" id="signOut" href="#">Sign Out</a>
+                <a class="dropdown-item" id="buyCreds" onclick="toggleInputField()" href="#">Buy Credits</a>
               </li>
             </ul>
           </div>
@@ -55,19 +57,69 @@
     </div>
   </nav>
 
-  <section>
-    <div id="adminList" style="display: none"class="container-fluid" >
-      <div class="row justify-content-center m-3m align-items-center"  style="height: 100%">
+  <section id="adminPanel" style="display: none">
+    <div class="container-fluid" style="height: 88.5vh">
+      <div class="row justify-content-center m-3m align-items-center" style="height: 100%">
         <div class="col-auto justify-content-center">
-        <ul class="list-group">
-          <li class="list-group-item">Cras justo odio</li>
-          <li class="list-group-item">Dapibus ac facilisis in</li>
-          <li class="list-group-item">Morbi leo risus</li>
-        </ul>
-      </div>
+          <div class="container">
+            <div class="row">
+              <div class="col-sm">
+                Buy 10
+              </div>
+              <div class="col-sm">
+                Buy 20
+              </div>
+              <div class="col-sm">
+                Buy 30
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm">
+                <div class="input-group mb-3">
+                  <input type="text" class="form-control" placeholder="" aria-label="buy10Cost"
+                    aria-describedby="basic-addon1">
+                </div>
+              </div>
+              <div class="col-sm">
+                <div class="input-group mb-3">
+                  <input type="text" class="form-control" placeholder="" aria-label="buy20Cost"
+                    aria-describedby="basic-addon1">
+                </div>
+              </div>
+              <div class="col-sm">
+                <div class="input-group mb-3">
+                  <input type="text" class="form-control" placeholder="" aria-label="buy30Cost"
+                    aria-describedby="basic-addon1">
+                </div>
+              </div>
+            </div>
+          </div>
+          <button id="backFromList" class="btn btn-primary" onclick="toggleAdminPanel()">Back</button>
+        </div>
       </div>
     </div>
+  </section>
 
+  <section id="priceList" style="display: none">
+    <div class="container-fluid" style="height: 88.5vh">
+      <div class="row justify-content-center m-3m align-items-center" style="height: 100%">
+        <div class="col-auto justify-content-center">
+          <ul class="list-group">
+            <li id="buy10" class="list-group-item">10 credits - $10<button id="buy10btn"
+                class="btn btn-outline-primary">Buy</button></li>
+            <li id="buy20" class="list-group-item">20 credits - $15<button id="buy20btn"
+                class="btn btn-outline-primary">Buy</button></li>
+            <li id="buy30" class="list-group-item">30 credits - $20<button id="buy30btn"
+                class="btn btn-outline-primary">Buy</button></li>
+          </ul>
+          <button id="backFromList" class="btn btn-primary" onclick="toggleInputField()">Back</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section id="convertSection">
     <div class="container-fluid" style="height: 88.5vh">
       <div class="row justify-content-center m-3m align-items-center" style="height: 100%" id="convertInputField">
         <div class="col-auto justify-content-center" style="display: none" id="convertInput">
@@ -80,7 +132,7 @@
         </div>
       </div>
     </div>
-   
+
 
   </section>
 
@@ -101,3 +153,17 @@
 </body>
 
 </html>
+
+<style>
+  #buy10btn {
+    margin-left: 10pt;
+  }
+
+  #buy20btn {
+    margin-left: 10pt;
+  }
+
+  #buy30btn {
+    margin-left: 10pt;
+  }
+</style>
