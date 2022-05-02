@@ -7,7 +7,7 @@ import { SecretManagerServiceClient } from "@google-cloud/secret-manager";
 import auth from "./routes/auth.js";
 import upload from "./routes/upload.js";
 import home from "./routes/home.js";
-import { GetUser, SetCreditsPrices } from "./db.js";
+import { GetUser, SetCreditsPrices, GetCreditsPrices } from "./db.js";
 import { CreateUser } from "./db.js";
 import { METHODS } from "http";
 
@@ -93,8 +93,14 @@ app.use("/upload", upload);
 app.use("/home", home);
 
 app.post("/getCreditPrices",(req, res)=>{
-  SetCreditsPrices().then((result)=>{
-    res.send({creditPrices: JSON.stringify(result)});
+  GetCreditsPrices().then((result)=>{
+    res.send({result:"getCreditPrices",creditPrices: JSON.stringify(result)});
+  })
+})
+
+app.post("/setCreditPrices", (req, res) =>{
+  SetCreditsPrices(req.body).then((result) => {
+    res.send({result: "setCreditPrices"})
   })
 })
 

@@ -1,3 +1,5 @@
+
+
 const uploadFile = async () => {
     const fileUpload = document.getElementById("fileInput").files[0];
     if (fileUpload) {
@@ -13,3 +15,5 @@ const uploadFile = async () => {
       console.log(response);
     }
   };
+
+

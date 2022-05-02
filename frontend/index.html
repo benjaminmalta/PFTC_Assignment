@@ -77,24 +77,27 @@
               <div class="col-sm">
                 <div class="input-group mb-3">
                   <input type="text" class="form-control" placeholder="" aria-label="buy10Cost"
-                    aria-describedby="basic-addon1">
+                    aria-describedby="basic-addon1" id="price1Input">
                 </div>
               </div>
               <div class="col-sm">
                 <div class="input-group mb-3">
                   <input type="text" class="form-control" placeholder="" aria-label="buy20Cost"
-                    aria-describedby="basic-addon1">
+                    aria-describedby="basic-addon1" id="price2Input">
                 </div>
               </div>
               <div class="col-sm">
                 <div class="input-group mb-3">
                   <input type="text" class="form-control" placeholder="" aria-label="buy30Cost"
-                    aria-describedby="basic-addon1">
+                    aria-describedby="basic-addon1" id="price3Input">
                 </div>
               </div>
             </div>
+            <button id="backFromList" class="btn btn-primary" onclick="toggleAdminPanel()">Back</button>
+            <button id="setNewPrice" class="btn btn-info" onclick="GetCreditPrices()">Get prices</button>
+            <button id="setNewPrice" class="btn btn-danger" onclick="setPrices()">Set prices</button>
+          
           </div>
-          <button id="backFromList" class="btn btn-primary" onclick="toggleAdminPanel()">Back</button>
         </div>
       </div>
     </div>

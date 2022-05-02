@@ -45,6 +45,7 @@ function hideInputField()
 }
 function toggleAdminPanel()
 {
+  GetCreditPrices();
   switch (document.getElementById("adminPanel").style.display) {
     case "none":
       document.getElementById("convertInput").style.display = "none";
@@ -63,18 +64,42 @@ function toggleAdminPanel()
   }
 }
 
+async function setPrices(){
+  
+  let price10 = document.getElementById("price1Input").value;
+  let price20 = document.getElementById("price2Input").value;
+  let price30 = document.getElementById("price3Input").value;
+  
 
+  let prices = {"buyTen":price10,"buyTwenty":price20,"buyThirty":price30};
+  const url = `/setCreditPrices`; 
+  const response = await axios.post(url, prices);
+  //const prices = JSON.parse(response.data.creditPrices);  
 
-async function GetCreditsPrices()
-{
+  console.log(prices);
+
+}
+async function GetCreditPrices()
+{  
+  let price10 = document.getElementById("price1Input");
+  let price20 = document.getElementById("price2Input");
+  let price30 = document.getElementById("price3Input");
   const url = `/getCreditPrices`;
   const headers = {
     "Content-Type": "text/html",
     "Access-Control-Allow-Origin": "*",
   };
   const response = await axios.post(url, headers);
-  const status = response.data.creditPrices;
+  const prices = JSON.parse(response.data.creditPrices);
+
+  
+  console.log("GetCreditsPrices()");
+  console.log(prices);
+
+
 }
+
+
 
 const authenticateReq = async (token) => {
   const url = `/auth?token=${token}`;
@@ -109,8 +134,9 @@ const authenticateReq = async (token) => {
     }
     showInputField();
     creditCount.style.display = "inline";
+    creditCount.style.marginRight ="10px"
     creditCount.innerText = `Credits: ${response.data.credits}`;
-    document.getElementById("picture").src = picture;
+    //document.getElementById("picture").src = picture;
    
     let date = new Date();
     date.setTime(date.getTime() + expiry)
