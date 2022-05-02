@@ -71,7 +71,7 @@ function hideInputField() {
       document.getElementById("convertInput").style.display = "none";
       document.getElementById("convertButton").style.display = "none";
       document.getElementById("downloadSectionBtn").style.display = "none";
-      downloadSection.style.display = "block";
+      downloadSection.style.display = "none";
       break;
   }
 }
@@ -85,7 +85,7 @@ function toggleAdminPanel() {
       document.getElementById("priceList").style.display = "none";
       document.getElementById("convertSection").style.display = "none";
       document.getElementById("adminPanel").style.display = "block";
-      downloadSection.style.display = "block";
+      downloadSection.style.display = "none";
       break;
     case "block":
       document.getElementById("convertInput").style.display = "block";
@@ -94,7 +94,7 @@ function toggleAdminPanel() {
       document.getElementById("priceList").style.display = "none";
       document.getElementById("convertSection").style.display = "block";
       document.getElementById("adminPanel").style.display = "none";
-      downloadSection.style.display = "block";
+      downloadSection.style.display = "none";
       break;
   }
 }
