@@ -67,6 +67,8 @@ auth.route("/").post((req, res) => {
       }
     })
     .catch((error) => {
+      document.getElementById("home-container").innerHTML = ``;
+      document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
       console.log("Token Expired");
       res.send({ status: "401" });
     });

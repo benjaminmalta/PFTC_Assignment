@@ -46,7 +46,7 @@
             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
               <li id="dropdown-list">
                 <a class="dropdown-item" id="signOut" href="#">Sign Out</a>
-                <a class="dropdown-item" id="buyCreds" onclick="toggleInputField()" href="#">Buy Credits</a>
+                <a class="dropdown-item" id="buyCreds" onclick="toggleBuyingSection()" href="#">Buy Credits</a>
               </li>
             </ul>
           </div>
@@ -76,18 +76,27 @@
             <div class="row">
               <div class="col-sm">
                 <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">€</span>
+                  </div>
                   <input type="text" class="form-control" placeholder="" aria-label="buy10Cost"
                     aria-describedby="basic-addon1" id="price1Input">
                 </div>
               </div>
               <div class="col-sm">
                 <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">€</span>
+                  </div>
                   <input type="text" class="form-control" placeholder="" aria-label="buy20Cost"
                     aria-describedby="basic-addon1" id="price2Input">
                 </div>
               </div>
               <div class="col-sm">
                 <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">€</span>
+                  </div>
                   <input type="text" class="form-control" placeholder="" aria-label="buy30Cost"
                     aria-describedby="basic-addon1" id="price3Input">
                 </div>
@@ -96,7 +105,7 @@
             <button id="backFromList" class="btn btn-primary" onclick="toggleAdminPanel()">Back</button>
             <button id="setNewPrice" class="btn btn-info" onclick="GetCreditPrices()">Get prices</button>
             <button id="setNewPrice" class="btn btn-danger" onclick="setPrices()">Set prices</button>
-          
+
           </div>
         </div>
       </div>
@@ -106,38 +115,109 @@
   <section id="priceList" style="display: none">
     <div class="container-fluid" style="height: 88.5vh">
       <div class="row justify-content-center m-3m align-items-center" style="height: 100%">
-        <div class="col-auto justify-content-center">
-          <ul class="list-group">
+        <div class="col-auto justify-content-center w-50 p-3">
+          <!-- <ul class="list-group">
             <li id="buy10" class="list-group-item">10 credits - $10<button id="buy10btn"
                 class="btn btn-outline-primary">Buy</button></li>
             <li id="buy20" class="list-group-item">20 credits - $15<button id="buy20btn"
                 class="btn btn-outline-primary">Buy</button></li>
             <li id="buy30" class="list-group-item">30 credits - $20<button id="buy30btn"
                 class="btn btn-outline-primary">Buy</button></li>
-          </ul>
-          <button id="backFromList" class="btn btn-primary" onclick="toggleInputField()">Back</button>
+          </ul> -->
+
+          <div class="container">
+            <div class="row">
+              <div class="col-sm">
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">€</span>
+                  </div>
+                  <input type="text" class="form-control" placeholder="" aria-label="buy10Cost"
+                    aria-describedby="basic-addon1" id="buy10" disabled>
+                  <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" onclick="buyCredits(10)" type="button">Buy</button>
+                  </div>
+
+                </div>
+              </div>
+              <div class="col-sm">
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">€</span>
+                  </div>
+                  <input type="text" class="form-control" placeholder="" aria-label="buy20Cost"
+                    aria-describedby="basic-addon1" id="buy20" disabled>
+                  <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" onclick="buyCredits(20)" type="button">Buy</button>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm">
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">€</span>
+                  </div>
+                  <input type="text" class="form-control" placeholder="" aria-label="buy30Cost"
+                    aria-describedby="basic-addon1" id="buy30" disabled>
+                  <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" onclick="buyCredits(30)" type="button">Buy</button>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-8">
+                  <button id="backFromList" class="btn btn-primary" onclick="toggleInputField()">Back</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
   </section>
 
 
-  <section id="convertSection">
+  <section id="convertSection" style="display: block">
     <div class="container-fluid" style="height: 88.5vh">
       <div class="row justify-content-center m-3m align-items-center" style="height: 100%" id="convertInputField">
         <div class="col-auto justify-content-center" style="display: none" id="convertInput">
           <input id="fileInput" class="form-control" type="file" id="formFile" accept="image/*" />
         </div>
         <div class="col-auto justify-content-center" style="display: none;" id="convertButton">
-          <button id="convert" type="button" class="btn btn-primary" onclick="uploadFile()">
+          <button id="convert" type="button" class="btn btn-primary" onclick="uploadFile(); reduceCredits();">
             Convert
+          </button>
+        </div>
+        <div class="col-auto justify-content-center" style="display: none;" id="downloadSectionBtn">
+          <button id="convert" type="button" class="btn btn-primary" onclick="toggleDownloadPanel()">
+            Download
           </button>
         </div>
       </div>
     </div>
-
-
   </section>
+
+  <section id="downloadListSection" style="display: none">
+    <div class="container-fluid" style="height: 88.5vh">
+      <div class="row justify-content-center m-3m align-items-center" style="height: 80%">
+        <div class="col-auto justify-content-center w-50 p-3">
+          <ul id="downloadList" class="list-group">
+            <!-- <li id="list" class="list-group-item">wat.pdf</li>
+            <button id="test"class="btn btn-outline-primary">Download</button> -->
+          </ul>     
+        </div>
+      </div>
+      <div class="row justify-content-center m-3m align-items-center" style="height: 20%">
+        <div class="col-auto justify-content-center w-50 p-3">
+        <button id="refreshBtn" class="btn btn-warning" onclick="getUserCompleted()">Refresh</button>
+        <button id="backFromList" class="btn btn-primary" onclick="toggleInputField()">Back</button>
+      </div>
+      </div>
+    </div>
+  </section>
+
+
 
   <footer class="bg-light text-center text-lg-start">
     <div class="text-center p-3 bg-primary" style="color: white">

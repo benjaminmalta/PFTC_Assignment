@@ -2,38 +2,40 @@ import Firestore from "@google-cloud/firestore";
 import { createHmac } from "crypto";
 import Redis from "redis";
 
-export let rclient = new Redis.createClient();
+const rclient = new Redis.createClient();
 
-rclient.on("connect", async() => {
-  console.log("Redis connected!");
-  //getCredits().then((data) => console.log(JSON.parse(data)));
+rclient.on('connect', function () {
+  console.log('redis connected');
+  // console.log(`connected ${rclient.connected}`);
+}).on('error', function (error) {
+  console.log(error);
 });
+rclient.connect();
 
 const getCredits = async () => {
-  return rclient.get("credits");
+  return await rclient.get("credits");
 }
 
 const setCredits = async (payload) => {
   return await rclient.set("credits", JSON.stringify(payload));
 };
 
-
 export async function SetCreditsPrices(payload){
   if(rclient.isOpen){
-    await rclient.connect();
+    const resp = await setCredits(payload);
+    return await resp;    
   }
-  const resp = await setCredits(payload);
+  console.log(resp);
 
-  return resp;
 }
 
-export async function GetCreditsPrices(){
+export async function GetCreditsPrices(){  
+  //console.log("Getting Prices!");
   if(rclient.isOpen){
-    await rclient.connect();
-  }
-  const resp = await getCredits();
-
-  return resp;
+    const resp = await getCredits();
+    return await resp;
+  }  
+  console.log(resp);
 }
 
 //Instantiating Firestore with project details
@@ -64,6 +66,34 @@ export async function GetUser(email) {
   return data;
 }
 
+
+//Get user based on Email search.
+export async function UpdateUserCredit(email, creditChange) {
+  console.log(email + " "+ creditChange);
+  const docRef = db.collection("userData");
+  const snapshot = await docRef.where("email", "==", email).get();
+  let data = [];
+  snapshot.forEach((doc) => {
+    data.push(doc.id);
+  });
+  console.log(data[0]);
+
+  const userRef = db.collection("userData").doc(data[0]);
+
+  try{
+    await db.runTransaction(async (t) =>{
+      const doc = await t.get(userRef);
+
+      const newCredits = doc.data().credits + parseInt(creditChange);
+      t.update(userRef, {credits: newCredits});
+      console.log('Transaction success!');
+    });
+  }catch(e){
+    console.log('Transaction failure:', e);
+  }
+  // return data;
+}
+
 export async function GetConversion(email, filename)
 {
   //.where( "filename", "==", filename)
@@ -74,7 +104,21 @@ export async function GetConversion(email, filename)
     data.push(doc.data());
     console.log(doc.id);
   });
-  return data;
+  return data;  
+}
+
+export async function GetUserCompleted(email)
+{
+  const docRef = db.collection("conversions");
+  const snapshot = await docRef.where("email", "==", email).get();
+  let data = [];
+  snapshot.forEach((doc) => {
+    if(doc.data().completed !== ""){
+      data.push(doc.data());
+    }
+    //console.log(doc.id);
+  });
+  return data;  
 }
 
 

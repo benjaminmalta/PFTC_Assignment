@@ -71,28 +71,24 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
           convertapi.convert('pdf', {
             File: req.file.path,
           }, 'jpg').then(function (result) {
-            result.file.save('converted/'+result.file.fileName);
-            //console.log("converted");
-            uploadCovertedFileToCloud("completed/", result.file.fileName).then(() =>{
-              GetConversion(email,req.file.originalname).then((r) =>{
-                //console.log(r[0].id);
-                publishMessage({
-                  url: "",
-                  date: new Date().toUTCString(),
-                  email: email,
-                  filename: result.file.fileName,
-                  completed: "https://storage.googleapis.com/" + bucketName + "/completed/" + result.file.fileName,
-                  //doc: r[0].id,
-                }).then(()=>{
-                  console.log("Firestore completed");
+            result.file.save('converted/'+result.file.fileName).then(()=>{
+              uploadCovertedFileToCloud("completed/", result.file.fileName).then(() =>{
+                GetConversion(email,req.file.originalname).then((r) =>{
+                  //console.log(r[0].id);
+                  publishMessage({
+                    url: "",
+                    date: new Date().toUTCString(),
+                    email: email,
+                    filename: result.file.fileName,
+                    completed: "https://storage.googleapis.com/" + bucketName + "/completed/" + result.file.fileName,
+                    //doc: r[0].id,
+                  }).then(()=>{
+                    console.log("Firestore completed");
+                  })
                 })
-              })
-            })
+              })              
+            });  
           });
-
-          //let base64Image = convertToBase64(req.file.path);
-
-          //console.log(convertToBase64(req.file.path));
         }
         );
       }).catch(console.error);
@@ -111,9 +107,6 @@ upload.route("/").post(imageUpload.single("image"), (req, res) => {
 
 // The ID of your GCS bucket
 const bucketName = 'pftc-msd-0000001.appspot.com';
-
-// The new ID for your GCS file
-const destFileName = 'wat.jpg';
 
 // The path to your file to upload
 //const filePath = './uploads/' + destFileName;
@@ -154,12 +147,6 @@ async function publishMessage(payload) {
   const dataBuffer = Buffer.from(JSON.stringify(payload), "utf8");
   await pubsub.topic("queue").publish(dataBuffer, {}, callbackPubSub)
   //console.dir(dataBuffer);
-}
-
-async function convertToBase64(data) {
-  var temp = fs.readFileSync(data);
-  var base64image = Buffer.from(temp);
-  return base64image.toString("base64");
 }
 
 //uploadFile().catch(console.error);
