@@ -13,7 +13,7 @@ import { METHODS } from "http";
 import clean from "./routes/clean.js";
 
 
-const DEV = true;
+const DEV = false;
 const PORT = DEV ? 80 : 443;
 const SECRET_MANAGER_CERT =
   "projects/88778565218/secrets/PublicKey/versions/latest";
