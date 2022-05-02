@@ -76,7 +76,7 @@ async function setPrices(){
   const response = await axios.post(url, prices);
   //const prices = JSON.parse(response.data.creditPrices);  
 
-  console.log(prices);
+  //console.log(prices);
 
 }
 async function GetCreditPrices()
